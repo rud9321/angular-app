@@ -1,31 +1,52 @@
+<table class="table table-condensed col-sm-12">
+  <tr>
+    <td>Form Status</td>
+    <td>{{ formGroup.status }}</td>
+  </tr>
+  <tr>
+    <td>Data</td>
+    <td>{{ formGroup.value | json }}</td>
+  </tr>
+</table>
+
 <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
   <div class="my-auto">
-    <form #myform="ngForm" autocomplete="false" (submit)="submitUser(user)">
-      <span *ngIf="myform.touched && myform.invalid">form touched</span>
+    <form
+      autocomplete="false"
+      [formGroup]="formGroup"
+      (ngSubmit)="formSubmit()"
+    >
       <div class="form-row">
-        <div
-          class="form-group"
-          [class.has-error]="
-            firstnameControl.invalid && firstnameControl.touched
-          "
-          [class.has-success]="firstnameControl.valid"
-        >
+        <div class="form-group">
           <label>First name </label>
           <input
             type="text"
             class="form-control"
             placeholder=""
             name="firstname"
-            autocomplete="false"
-            [(ngModel)]="user.firstname"
-            #firstnameControl="ngModel"
+            formControlName="firstname"
+            autocomplete="off"
             required
           />
           <span
             class="help-block"
-            *ngIf="firstnameControl.touched && firstnameControl.invalid"
-            >first name touched!</span
+            *ngIf="
+              (myFormGroup.firstname.touched || formSubmitted) &&
+              myFormGroup.firstname.errors
+            "
           >
+            <span
+              class="has-error"
+              *ngIf="myFormGroup.firstname.errors.required"
+            >
+              First Name is required </span
+            ><span
+              class="has-error"
+              *ngIf="myFormGroup.firstname.errors.minlength"
+            >
+              First Name min length should be min 3
+            </span>
+          </span>
         </div>
         <!-- form-group end.// -->
         <div class="form-group">
@@ -35,8 +56,7 @@
             class="form-control"
             placeholder=" "
             name="lastname"
-            [(ngModel)]="user.lastname"
-            #lastnameControl="ngModel"
+            formControlName="lastname"
             autocomplete="off"
           />
         </div>
@@ -49,14 +69,16 @@
           type="email"
           class="form-control"
           name="email"
-          [(ngModel)]="user.email"
           placeholder=""
-          #emailControl="ngModel"
+          formControlName="email"
           autocomplete="off"
         />
         <small class="form-text text-muted"
           >We'll never share your email with anyone else.</small
         >
+        <span class="help-block has-error" *ngIf="myFormGroup.email.errors">
+          Email should be valid
+        </span>
       </div>
       <!-- form-group end.// -->
       <div class="form-group">
@@ -64,10 +86,9 @@
           <input
             class="form-check-input"
             type="radio"
-            [(ngModel)]="user.gender"
             name="gender"
-            #genderControl="ngModel"
-            value="option1"
+            formControlName="gender"
+            value="male"
           />
           <span class="form-check-label"> Male </span>
         </label>
@@ -75,13 +96,18 @@
           <input
             class="form-check-input"
             type="radio"
-            [(ngModel)]="user.gender"
             name="gender"
-            #genderControl="ngModel"
-            value="option2"
+            formControlName="gender"
+            value="female"
           />
           <span class="form-check-label"> Female</span>
         </label>
+        <span
+          class="help-block has-error"
+          *ngIf="formSubmitted && myFormGroup.gender.invalid"
+        >
+          Gender is required
+        </span>
       </div>
       <!-- form-group end.// -->
       <div class="form-row">
@@ -90,8 +116,7 @@
           <input
             type="text"
             name="city"
-            [(ngModel)]="user.city"
-            #cityControl="ngModel"
+            formControlName="city"
             class="form-control"
           />
         </div>
@@ -102,13 +127,12 @@
             id="inputState"
             class="form-control"
             name="country"
-            [(ngModel)]="user.country"
-            #countryControl="ngModel"
+            formControlName="country"
           >
             <option> Choose...</option>
             <option>Uzbekistan</option>
             <option>Russia</option>
-            <option selected="">United States</option>
+            <option>United States</option>
             <option>India</option>
             <option>Afganistan</option>
           </select>
@@ -122,8 +146,7 @@
           class="form-control"
           type="password"
           name="password"
-          [(ngModel)]="user.password"
-          #passwordControl="ngModel"
+          formControlName="password"
         />
       </div>
       <!-- form-group end.// -->

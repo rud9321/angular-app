@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { user } from "../model/user.model";
 
 @Component({
   selector: "app-forms",
@@ -11,4 +12,11 @@ export class FormsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+  user = {};
+  submitUser(user) {
+    if (true) {
+      alert("success");
+    }
+    console.log(user);
+  }
 }
