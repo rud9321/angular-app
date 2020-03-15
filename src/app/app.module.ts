@@ -1,34 +1,22 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { HomeComponent } from "./home/home.component";
-import { SidebarComponent } from "./sidebar/sidebar.component";
-import { FormsComponent } from "./forms/forms.component";
-import { ReactiveFormComponent } from "./reactive-form/reactive-form.component";
-import { DataService } from "./services/data.service";
-import { HttpModule } from "@angular/http";
-import { HttpServicesComponent } from './http-services/http-services.component';
-import { ServiceDetailComponent } from './service-detail/service-detail.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { IndexComponent } from './dashboard';
+
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    SidebarComponent,
-    FormsComponent,
-    ReactiveFormComponent,
-    HttpServicesComponent,
-    ServiceDetailComponent
+    NotFoundComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule
+    AppRoutingModule
   ],
-  providers: [DataService],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
